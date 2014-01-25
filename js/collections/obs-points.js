@@ -34,5 +34,8 @@ app.ObsPoints = Backbone.Collection.extend({
 		//console.log("pointsStartingBefore.length: " + pointsStartingBefore.length);
 		console.log(pointsStartingBefore);
 		return pointsStartingBefore;
+	},
+	getTeams: function(){
+		return _.chain(this.pluck('team_num')).uniq().compact().sortBy(function(num){return parseInt(num)}).value();
 	}
 });

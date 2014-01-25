@@ -6,9 +6,9 @@ app.ObserverPoint = Backbone.Model.extend({
 		var date = this.get('date_clean');
 		var startTime = moment(this.get('start_no_zone'));
 		var endTime = moment(this.get('end_no_zone'));
-		var popupContent = '<div><strong>Start:</strong> ' + startTime.format('h:mm A, MMM, Do') + '</div><div><strong>Team:</strong> DI-' + this.get('team_num') + '</div><div><strong>Location: </strong>' + this.getLocation(this.get('team_num')) + '</div>';
+		var popupContent = '<h2><strong><em>#' + this.get('_index') + '</em></strong></h2><div><strong>Start:</strong> ' + startTime.format('h:mm A, MMM, Do') + '</div><div><strong>Team:</strong> DI-' + this.get('team_num') + '</div><div><strong>Location: </strong>' + getLocation(this.get('team_num')) + '</div>';
 
-		this.set('feature',L.circle(latLng,2000).bindPopup(popupContent).setStyle({
+		this.set('feature',L.circleMarker(latLng,{radius:5}).bindPopup(popupContent).setStyle({
 			color:this.getColor(date),
 			fillColor:this.getColor(date)
 		}));

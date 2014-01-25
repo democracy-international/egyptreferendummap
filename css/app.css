@@ -24,7 +24,7 @@ div#map {
 	position:absolute;
 	top:60px;
 	right:10px;
-	z-index:11000;
+	z-index:1029;
 	text-shadow:1px 1px 3px #999999;
 }
 
@@ -34,4 +34,12 @@ div#map {
 
 .ui-widget-content {
 	background:#111111 !important;
+}
+
+ul.dropdown-menu-form {
+    padding: 5px 10px 0;
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+    min-width:200px;
 }

@@ -32,11 +32,29 @@
             <div class="navbar-header">
                 <div class="navbar-brand" >Egypt Referendum Observer TimeMap</div>
             </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Teams <b class="caret"></b></a>
+                    <ul class="dropdown-menu dropdown-menu-form" id="team-dropdown">
+                        <li>
+                            <div class="radio">
+                                <label><input type="radio" name="teamOptions" value='0' checked>All Teams
+                                </label>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-right" id="day-toggle">
+                <button type="button" class="btn btn-primary" data-toggle="button" data-day="1">Day 1</button>
+                <button type="button" class="btn btn-primary" data-toggle="button" data-day="2">Day 2</button>
+            </form>
             <div class="navbar-brand navbar-right">
                 <div id="startTime"></div>
                 <div id="timeslider"></div>
                 <div id="stopTime"></div>
             </div>
+
         </div>
     </div>
     <div id="timeDisplay"><h1></h1><h2></h2></div>
