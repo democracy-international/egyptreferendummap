@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/dot-luv/jquery-ui.css" />
     <!-- Other Libraries -->
     <link href='http://api.tiles.mapbox.com/mapbox.js/v1.6.0/mapbox.css' rel='stylesheet'>
+    <link href="css/Control.Minimap.css" rel="stylesheet">
     <!--[if lte IE 8]>
     <link href='//api.tiles.mapbox.com/mapbox.js/v1.6.0/mapbox.ie.css' rel='stylesheet' />
     <![endif]-->
@@ -46,8 +47,8 @@
                 </li>
             </ul>
             <form class="navbar-form navbar-right" id="day-toggle">
-                <button type="button" class="btn btn-primary" data-toggle="button" data-day="1">Day 1</button>
-                <button type="button" class="btn btn-primary" data-toggle="button" data-day="2">Day 2</button>
+                <label class="btn btn-primary active day-1-color"><input id="day1-button" class="hidden-checkbox" type="checkbox" value="1" checked>Day 1</label>
+                <label class="btn btn-primary active day-2-color"><input id="day2-button" class="hidden-checkbox" type="checkbox" value="2" checked>Day 2</label>
             </form>
             <div class="navbar-brand navbar-right">
                 <div id="startTime"></div>
@@ -69,6 +70,7 @@
     <!-- Load Other libraries -->
 
     <script src='http://api.tiles.mapbox.com/mapbox.js/v1.6.0/mapbox.js'></script>
+    <script src="js/lib/Control.Minimap.js"></script>
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script src="js/lib/underscore-min.js"></script>
     <script src="js/lib/backbone-min.js"></script>

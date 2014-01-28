@@ -19,10 +19,10 @@ app.ObserverPoint = Backbone.Model.extend({
 	getColor: function(date){
 		switch (date){
 			case '1/14/2014':
-				return "#03f";
+				return "#3498db";
 				break;
 			case '1/15/2014':
-				return "#f00";
+				return "#e74c3c";
 				break; 
 			default:
 				console.log('color match error');

@@ -4,12 +4,19 @@ app.MapView = Backbone.View.extend({
 	el: '#map',
 	initialize: function(){
 		console.log('mapView initializing');
-		this.activeFeatures = [];
-		this.render();
+		this.activeFeatures = []; // remove
+		this.activeFeaturesNew = L.featureGroup();
+		this.activePoints = [];
+		this.map = L.mapbox.map('map', 'examples.map-9ijuk24y').setView([29.8608,30.7702], 7).addLayer(this.activeFeaturesNew);
+		var miniMap = new L.Control.MiniMap(L.mapbox.tileLayer('examples.map-9ijuk24y'),{zoomLevelFixed: 4}).addTo(this.map);
 	},
-	render: function(){
+	render: function(filters){
 		console.log('mapView rendering');
-		this.map = L.mapbox.map('map', 'examples.map-9ijuk24y').setView([29.8608,30.7702], 7);
+		var mapBounds = this.updateActiveFeatures(filters);
+		console.log('mapbounds');
+		console.log(mapBounds);
+		console.log('mapBounds valid? ' + mapBounds.isValid());
+		if (mapBounds.isValid() && filters.team !== 0) {this.map.fitBounds(mapBounds,{animate: true});}
 	},
 	addAll:function(pointModel){
 		this.collection.each(this.addPoint, this);
@@ -24,27 +31,30 @@ app.MapView = Backbone.View.extend({
 	removePoint: function(pointModel){
 		this.map.removeLayer(pointModel.get('feature'));
 	},
-	updateActiveFeatures: function(moment){
+	updateActiveFeatures: function(filters){
 		// determine enter, update, exit sets
-		var pointsStartingBefore = this.collection.filterByDate(moment); // pluck feature
-		var requestedFeatures = _.map(pointsStartingBefore,function(point){
+		var requestedPoints = this.collection.filterPoints(filters);
+		var requestedFeatures = _.map(requestedPoints,function(point){
 			return point.attributes.feature;
 		});
 		var enter = _.difference(requestedFeatures,this.activeFeatures);
 		var exit = _.difference(this.activeFeatures,requestedFeatures);
 
 		this.activeFeatures = requestedFeatures;
-		
+		this.activePoints = requestedPoints;
+
 		// remove exit set from map
 		_.each(exit,this.removeLayer,this);
 		// add enter set from map
 		_.each(enter,this.addLayer,this);
+
+		return this.activeFeaturesNew.getBounds();
 	},
 	addLayer: function(layer){
-		this.map.addLayer(layer);
+		this.activeFeaturesNew.addLayer(layer);
 	},
 	removeLayer: function(layer){
-		this.map.removeLayer(layer);
+		this.activeFeaturesNew.removeLayer(layer);
 	},
 	mapHasLayer: function(pointModel){
 		if(this.map.hasLayer(pointModel.get('feature'))){

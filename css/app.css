@@ -43,3 +43,25 @@ ul.dropdown-menu-form {
     overflow-x: hidden;
     min-width:200px;
 }
+
+input.hidden-checkbox{
+	display:none;
+}
+
+.day-1-color{
+	background-color:#3498db;
+}
+
+.day-1-color.active{
+	background-color: #2980b9;
+}
+
+.day-2-color {
+	background-color:#e74c3c;
+	border-color:#c0392b;
+}
+
+.day-2-color.active, .day-2-color:hover, .day-2-color:focus{
+	background-color: #c0392b;
+	border-color:#962d22;
+}

@@ -2,8 +2,9 @@ var app = app || {};
 
 app.Router = Backbone.Router.extend({
 	initialize: function(){
-		_.bindAll(this, 'slideEvent', 'slideStopEvent');
+		_.bindAll(this, 'slideEvent', 'slideStopEvent','daySelect','teamSelect');
 		console.log('router initialized');
+		this.days = {};
 		this.observerPoints = new app.ObsPoints;
 
 		this.observerPoints.on('sync',this.initializeMapView, this);
@@ -50,8 +51,10 @@ app.Router = Backbone.Router.extend({
 			//var $teamSelect = $('<li><a href="#" data-team='+ team + '>Team '+ team + ' - ' + getLocation(team) + '</a></li>');
 			$teamSelect.appendTo($teamDropdown);
 		});
-		$('#day-toggle button').click(this.buttonClick);
-		$('#team-dropdown a').click(this.teamSelect);
+		$('#day-toggle input').click(function(){
+			$(this).parent().toggleClass('active');
+		});
+		$('#day-toggle input').change(this.daySelect);
 		$('#team-dropdown input[type="radio"]').change(this.teamSelect);
 	},
 	slideEvent: function(event,ui){
@@ -64,17 +67,34 @@ app.Router = Backbone.Router.extend({
 		console.log('slideStop value');
 		console.log(this.timeStep);
 		console.log($('#timeslider').slider('value'));
-		this.mapView.updateActiveFeatures(this.timeStep[$('#timeslider').slider('value')]); 
-		$('#timeDisplay h2').html('Reports: <strong>' + $('.leaflet-overlay-pane g').length + '</strong>');
+		this.updateMap(); 
+		
 	},
-	buttonClick: function(event){
+	daySelect: function(event){
 		console.log('button clicked!');
-		console.log('Day ' + $(event.target).data('day'));
+		console.log($(event.target));
+		this.updateMap();
 	},
 	teamSelect: function(event){
 		console.log('team selected!');
 		console.log(event);
 		console.log('Team ' + $(event.target).val());
+		this.updateMap();
+	},
+	collectFilters: function(){
+		// maybe boost performance by allowing arguments with filters? 
+		return filters = {
+			time: this.timeStep[$('#timeslider').slider('value')],
+			days: {
+				day1: $('#day1-button').prop('checked'),
+				day2: $('#day2-button').prop('checked'),
+			},
+			team: parseInt($("#team-dropdown input:radio[name=teamOptions]:checked").val())
+		};
+	},
+	updateMap: function(){
+		this.mapView.render(this.collectFilters());
+		$('#timeDisplay h2').html('Reports: <strong>' + $('.leaflet-overlay-pane g').length + '</strong>');
 	}
 });
 
