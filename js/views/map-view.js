@@ -13,9 +13,6 @@ app.MapView = Backbone.View.extend({
 	render: function(filters){
 		console.log('mapView rendering');
 		var mapBounds = this.updateActiveFeatures(filters);
-		console.log('mapbounds');
-		console.log(mapBounds);
-		console.log('mapBounds valid? ' + mapBounds.isValid());
 		if (mapBounds.isValid() && filters.team !== 0) {this.map.fitBounds(mapBounds,{animate: true});}
 	},
 	addAll:function(pointModel){
