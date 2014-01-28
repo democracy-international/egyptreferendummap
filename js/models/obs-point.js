@@ -10,7 +10,9 @@ app.ObserverPoint = Backbone.Model.extend({
 
 		this.set('feature',L.circleMarker(latLng,{radius:5}).bindPopup(popupContent).setStyle({
 			color:this.getColor(date),
-			fillColor:this.getColor(date)
+			fillColor:this.getColor(date), 
+			stroke: false,
+			fillOpacity: 0.4
 		}));
 		this.set('start_time',startTime);
 		this.set('end_time',endTime);
