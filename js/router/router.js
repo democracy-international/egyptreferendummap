@@ -96,6 +96,8 @@ app.Router = Backbone.Router.extend({
 		this.mapView.render(this.collectFilters());
 		var currentReports = this.mapView.activePoints.length;
 		console.log('currentReports: ' + currentReports);
+		console.log(this.mapView.activePoints);
+		console.log(this.mapView.activeFeatures);
 		$('#timeDisplay h2').html('Reports: <strong>' + currentReports + '</strong>');
 	}
 });
